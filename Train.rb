@@ -1,6 +1,6 @@
 class Train
   attr_reader :number, :type, :route, :count, :station
-  attr_accessor  :speed
+  attr_accessor :speed
 
   def initialize(number, type, count)
     @number = number
@@ -20,7 +20,8 @@ class Train
   def add_carriage #доб 1 ваг
     if @speed == 0
       @count += 1
-    else stop
+    else
+      stop
       puts "Stop"
     end
   end
@@ -28,7 +29,8 @@ class Train
   def del_carriage #уд 1 ваг
     if @speed == 0
       @count -= 1
-    else stop
+    else
+      stop
       puts "Stop"
     end
   end
@@ -51,6 +53,12 @@ class Train
   end
 
   def move_prev_station #приб
-    self.station == self.route.stations[self.route.stations.index(self.station) + 1]
+    if self.route.stations[self.route.stations.index(self.station) + 1]
+    elsif self.route.stations[self.route.stations.index(self.station) - 1]
+    elsif self.station = self.route.stations[self.route.stations.index(self.station) + 1]
+    else
+      stop
+      puts "Stop"
+    end
   end
 end
