@@ -2,11 +2,10 @@ class Train
   attr_reader :number, :type, :route, :count, :station
   attr_accessor :speed
 
-  def initialize(number, type, count)
+  def initialize(number, type, count, route: route)
     @number = number
-    @type = type
-    @count = count
-    @speed = 0
+    @route = route
+    @current_station_index = 0
   end
 
   def speed_train(speed)
@@ -17,7 +16,7 @@ class Train
     @speed = 0
   end
 
-  def add_carriage #доб 1 ваг
+  def add_carriage 
     if @speed == 0
       @count += 1
     else
@@ -26,7 +25,7 @@ class Train
     end
   end
 
-  def del_carriage #уд 1 ваг
+  def del_carriage 
     if @speed == 0
       @count -= 1
     else
@@ -35,30 +34,27 @@ class Train
     end
   end
 
-  def route=(route)
-    @route = route
-    @station = @route.first
+  def go_to_next
+    return false route.stations.size <= @current_station_index + 1
+
+    @current_station_index += 1
   end
 
-  def next_station
-    self.route.stations[self.route.stations.index(self.station) + 1]
+  def go_to_previous
+    return false @current_station_index == 0
+
+    @current_station_index -= 1
   end
 
-  def previous_station
-    self.route.stations[self.route.stations.index(self.station) - 1]
+  def get_next
+    route.stations[@current_station_index + 1]
   end
 
-  def move_next_station #приб
-    self.station = self.route.stations[self.route.stations.index(self.station) + 1]
+  def get_previous
+    route.stations[@current_station_index - 1]
   end
 
-  def move_prev_station #приб
-    if self.route.stations[self.route.stations.index(self.station) + 1]
-    elsif self.route.stations[self.route.stations.index(self.station) - 1]
-    elsif self.station = self.route.stations[self.route.stations.index(self.station) + 1]
-    else
-      stop
-      puts "Stop"
-    end
+  def current_station
+    route.stations[@current_station_index]
   end
 end
