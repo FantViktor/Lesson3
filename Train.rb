@@ -5,7 +5,7 @@ class Train
   def initialize(number, type, count, route: route)
     @number = number
     @route = route
-    @current_station_index = 0
+    @current_station_index = 1
   end
 
   def speed_train(speed)
